@@ -16,6 +16,10 @@ export function NoteForm(): ReactElement {
   const noteId = useSelector(
     (state: { currentNote: { id: string } }) => state.currentNote.id,
   );
+  const isBasketClicked = useSelector(
+    (state: { navigation: { isBasketClicked: boolean } }) =>
+      state.navigation.isBasketClicked,
+  );
 
   const { data, error, isLoading } = useGetNoteQuery({ userId, noteId });
   const [updateNote, { isLoading: isUpdating }] = useUpdateNoteMutation();
@@ -37,7 +41,6 @@ export function NoteForm(): ReactElement {
 
   const handleOnFinish = async ({ title, body }: NoteUpdate) => {
     updateNote({ userId, noteId, dto: { title, text: body } });
-    // form.resetFields
   };
 
   return (
@@ -47,13 +50,13 @@ export function NoteForm(): ReactElement {
       form={form}
       onFinish={handleOnFinish}>
       <Form.Item name="title">
-        <Input placeholder="Название" />
+        <Input readOnly={isBasketClicked} placeholder="Название" />
       </Form.Item>
       <Form.Item name="body">
         {/* @ts-ignore */}
-        <NoteEditor placeholder="Наберите текст" />
+        <NoteEditor readOnly={isBasketClicked} placeholder="Наберите текст" />
       </Form.Item>
-      <Form.Item>
+      <Form.Item hidden={isBasketClicked}>
         <Button htmlType="submit" type="primary" loading={isUpdating}>
           Сохранить изменения
         </Button>

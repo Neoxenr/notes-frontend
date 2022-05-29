@@ -4,5 +4,6 @@ export {
   useAddNoteMutation,
   useDeleteNoteMutation,
   useUpdateNoteMutation,
+  useRestoreNoteMutation,
   usePrefetch,
 } from './notes';

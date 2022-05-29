@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import { Card } from 'antd';
-import { usePrefetch } from '../../../../api/notes';
 import { useDispatch } from 'react-redux';
 import { setId } from '../../../../store/slices/currentNoteSlice';
 import { AppDispatch } from '../../../../store/store';
@@ -13,31 +12,15 @@ type NoteProps = {
   title: string;
   text: string;
   updatedAt: string;
+  isLoading: boolean;
 };
 
 export function Note(props: NoteProps): ReactElement {
   const dispatch: AppDispatch = useDispatch();
 
-  const prefetchNote = usePrefetch('getNote');
-
-  const userId: string = '4b10ef6e-991f-4e62-b275-57193a2280fa';
-
-  // const handleMouseEnter = async (): Promise<void> => {
-  //   if (!props.isFirst) {
-  //     prefetchNote({ userId, noteId: props.id }, { ifOlderThan: 2 });
-  //   }
-  // };
-
   const handleClick = async (): Promise<void> => {
     dispatch(setId(props.id));
   };
-
-  // useEffect(() => {
-  //   if (props.isFirst) {
-  //     prefetchNote({ userId, noteId: props.id }, { ifOlderThan: 2 });
-  //     dispatch(setId(props.id));
-  //   }
-  // });
 
   return (
     <Card
@@ -45,8 +28,7 @@ export function Note(props: NoteProps): ReactElement {
       className="note"
       title={props.title}
       onClick={handleClick}
-      // onMouseEnter={handleMouseEnter}
-      >
+      loading={props.isLoading}>
       <div>{parse(props.text)}</div>
       <p>{props.id}</p>
     </Card>

@@ -4,14 +4,17 @@ import { api } from '../api';
 
 const extendedApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getNotes: builder.query<Note[], string>({
-      query: (userId) => `users/${userId}/notes/`,
+    getNotes: builder.query<Note[], { userId: string; isTrash: boolean }>({
+      query: ({ userId, isTrash }) => ({
+        url: `users/${userId}/notes`,
+        params: {
+          trash: isTrash,
+        },
+      }),
       providesTags: ['Note'],
     }),
     getNote: builder.query<Note, { userId: string; noteId: string }>({
-      query: ({ userId, noteId }) => {
-        return `users/${userId}/notes/${noteId}`;
-      },
+      query: ({ userId, noteId }) => `users/${userId}/notes/${noteId}`,
     }),
     addNote: builder.mutation<Note, { userId: string; dto: CreateNoteDto }>({
       query: ({ userId, dto }) => ({
@@ -32,9 +35,22 @@ const extendedApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Note'],
     }),
-    deleteNote: builder.mutation<boolean, { userId: string; noteId: string }>({
+    restoreNote: builder.mutation<Note, { userId: string; noteId: string }>({
       query: ({ userId, noteId }) => ({
+        url: `users/${userId}/notes/${noteId}/restore`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Note'],
+    }),
+    deleteNote: builder.mutation<
+      boolean,
+      { userId: string; noteId: string; isSoftDelete: boolean }
+    >({
+      query: ({ userId, noteId, isSoftDelete }) => ({
         url: `users/${userId}/notes/${noteId}`,
+        params: {
+          softDelete: isSoftDelete,
+        },
         method: 'DELETE',
       }),
       invalidatesTags: ['Note'],
@@ -49,5 +65,6 @@ export const {
   useAddNoteMutation,
   useDeleteNoteMutation,
   useUpdateNoteMutation,
+  useRestoreNoteMutation,
   usePrefetch,
 } = extendedApi;

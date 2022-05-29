@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import ReactQuill from 'react-quill';
 
-import parse from "html-react-parser";
+import parse from 'html-react-parser';
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -24,6 +24,7 @@ type OnChangeHandler = {
 type Props = {
   value: string;
   placeholder: string;
+  readOnly: boolean;
   onChange: OnChangeHandler;
 };
 
@@ -31,12 +32,14 @@ export function NoteEditor({
   value,
   onChange,
   placeholder,
+  readOnly,
 }: Props): ReactElement {
   return (
     <div>
       <ReactQuill
         placeholder={placeholder}
         theme="snow"
+        readOnly={readOnly}
         defaultValue={value}
         modules={modules}
         onChange={onChange}
