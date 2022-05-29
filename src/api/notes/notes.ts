@@ -12,9 +12,6 @@ const extendedApi = api.injectEndpoints({
       query: ({ userId, noteId }) => {
         return `users/${userId}/notes/${noteId}`;
       },
-      // providesTags: (result, error, { userId, noteId }) => {
-      //   return [{ type: 'Note', noteId }];
-      // },
     }),
     addNote: builder.mutation<Note, { userId: string; dto: CreateNoteDto }>({
       query: ({ userId, dto }) => ({

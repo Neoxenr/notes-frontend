@@ -1,28 +1,26 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import { Layout } from 'antd';
 
 import { Notes } from '../../components/Notes';
 
-import { MiddleHeader, RightHeader } from '../../components/Headers';
-import { NoteEditor } from '../../components/NoteEditor';
+import { MiddleHeader } from '../../components/Headers';
+import { LeftSider, RightSider } from '../../components/Siders';
 
 import './style.css';
-import { RightSider } from '../../components/Siders';
 
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 
 export function Home(): ReactElement {
   console.log('FFFFF');
 
   return (
     <Layout>
-      <Sider>left sidebar</Sider>
+      <LeftSider />
       <Content>
         <MiddleHeader />
         <Notes />
       </Content>
-      {/* мб сделать его выдвигающимся */}
       <RightSider />
     </Layout>
   );

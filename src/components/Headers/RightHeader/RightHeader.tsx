@@ -10,13 +10,11 @@ export function RightHeader(): ReactElement {
   const noteId = useSelector((state: { currentNote: { id: string } }) => {
     return state.currentNote.id;
   });
-
   const userId: string = '4b10ef6e-991f-4e62-b275-57193a2280fa';
 
   const [deleteNote, { isLoading }] = useDeleteNoteMutation();
 
   const handleClick = async (): Promise<void> => {
-    // затемни
     if (!isLoading) {
       try {
         await deleteNote({
@@ -32,7 +30,9 @@ export function RightHeader(): ReactElement {
 
   return (
     <Space>
-      <Button onClick={handleClick}>Delete note</Button>
+      <Button type="primary" onClick={handleClick} loading={isLoading}>
+        Delete note
+      </Button>
     </Space>
   );
 }

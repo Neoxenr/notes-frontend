@@ -17,7 +17,7 @@ export function MiddleHeader(): ReactElement {
       try {
         await addNote({
           userId,
-          dto: { title: 'Без названия', text: 'test' },
+          dto: { title: 'Без названия', text: 'HAHA' },
         }).unwrap();
       } catch (err) {
         console.error('Failed to create the note: ', err);
@@ -29,7 +29,7 @@ export function MiddleHeader(): ReactElement {
     <Header>
       <Space>
         <Search />
-        <Button onClick={handleClick}>Create</Button>
+        <Button onClick={handleClick} loading={isLoading}>Create</Button>
         <Button>Change view</Button>
       </Space>
     </Header>

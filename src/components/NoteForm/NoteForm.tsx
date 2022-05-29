@@ -1,69 +1,63 @@
-import React, { ReactElement, useEffect } from 'react';
-import { Button, Form } from 'antd';
-import Title from 'antd/lib/typography/Title';
+import { ReactElement, useEffect } from 'react';
+import { Button, Form, Input, Skeleton } from 'antd';
 import { NoteEditor } from '../NoteEditor';
 import { useSelector } from 'react-redux';
-import { useGetNoteQuery } from '../../api';
+import { useGetNoteQuery, useUpdateNoteMutation } from '../../api';
 
-interface IPostCreate {
+type NoteUpdate = {
+  title: string;
   body: string;
-}
+};
 
 export function NoteForm(): ReactElement {
   const [form] = Form.useForm();
 
   const userId: string = '4b10ef6e-991f-4e62-b275-57193a2280fa';
-
   const noteId = useSelector(
     (state: { currentNote: { id: string } }) => state.currentNote.id,
   );
-  console.log
+
   const { data, error, isLoading } = useGetNoteQuery({ userId, noteId });
+  const [updateNote, { isLoading: isUpdating }] = useUpdateNoteMutation();
 
   useEffect(() => {
     if (form.__INTERNAL__.name) {
       form.resetFields();
-      form.setFieldsValue({ body: data !== undefined ? data.text : '' });
+      form.setFieldsValue(
+        data !== undefined
+          ? { body: data.text, title: data.title }
+          : { body: '', title: '' },
+      );
     }
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Skeleton active />;
   }
 
-  const handleOnFinish = (values: IPostCreate) => {
-    // logic to submit form to server
-    console.log(values.body);
-    // form.resetFields();
+  const handleOnFinish = async ({ title, body }: NoteUpdate) => {
+    updateNote({ userId, noteId, dto: { title, text: body } });
+    // form.resetFields
   };
 
   return (
-    <>
-      <Title level={5}>Your Post</Title>
-
-      <Form
-        name="note-form"
-        layout="vertical"
-        form={form}
-        initialValues={{ body: data !== undefined ? data.text : '' }}
-        onFinish={handleOnFinish}>
-        <Form.Item
-          name="body"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter body of post',
-            },
-          ]}>
-          {/* @ts-ignore */}
-          <NoteEditor value={form.getFieldValue} />
-        </Form.Item>
-        <Form.Item>
-          <Button htmlType="submit" type="primary">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
+    <Form
+      name="note-form"
+      layout="vertical"
+      form={form}
+      onFinish={handleOnFinish}>
+      <Form.Item name="title">
+        <Input placeholder="Название" />
+      </Form.Item>
+      <Form.Item name="body">
+        {/* @ts-ignore */}
+        <NoteEditor placeholder="Наберите текст" />
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType="submit" type="primary" loading={isUpdating}>
+          Сохранить изменения
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }

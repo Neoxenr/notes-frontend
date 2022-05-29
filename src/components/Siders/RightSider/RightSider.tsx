@@ -1,9 +1,8 @@
+import { ReactElement } from 'react';
+import { useSelector } from 'react-redux';
 import Sider from 'antd/lib/layout/Sider';
-import React, { ReactElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { RightHeader } from '../../Headers';
 import { NoteForm } from '../../NoteForm';
-import { NoteEditor } from '../../NoteEditor';
 
 export function RightSider(): ReactElement {
   const noteId = useSelector(
@@ -15,7 +14,7 @@ export function RightSider(): ReactElement {
       {noteId !== undefined ? (
         <>
           <RightHeader />
-          <NoteForm />
+          <NoteForm />  
         </>
       ) : (
         <></>
