@@ -1,10 +1,17 @@
-import { CreateNoteDto } from '../../common/dto/types';
-import { Note } from '../../common/types';
+import {
+  GetNotesParams,
+  GetNoteParams,
+  AddNoteParams,
+  UpdateNoteParams,
+  RestoreNoteParams,
+  DeleteNoteParams,
+} from '../../common';
+import { Note } from '../../common/entity/types';
 import { api } from '../api';
 
 const extendedApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getNotes: builder.query<Note[], { userId: string; isTrash: boolean }>({
+    getNotes: builder.query<Note[], GetNotesParams>({
       query: ({ userId, isTrash }) => ({
         url: `users/${userId}/notes`,
         params: {
@@ -13,10 +20,10 @@ const extendedApi = api.injectEndpoints({
       }),
       providesTags: ['Note'],
     }),
-    getNote: builder.query<Note, { userId: string; noteId: string }>({
+    getNote: builder.query<Note, GetNoteParams>({
       query: ({ userId, noteId }) => `users/${userId}/notes/${noteId}`,
     }),
-    addNote: builder.mutation<Note, { userId: string; dto: CreateNoteDto }>({
+    addNote: builder.mutation<Note, AddNoteParams>({
       query: ({ userId, dto }) => ({
         url: `users/${userId}/notes`,
         method: 'POST',
@@ -24,10 +31,7 @@ const extendedApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Note'],
     }),
-    updateNote: builder.mutation<
-      Note,
-      { userId: string; noteId: string; dto: CreateNoteDto }
-    >({
+    updateNote: builder.mutation<Note, UpdateNoteParams>({
       query: ({ userId, noteId, dto }) => ({
         url: `users/${userId}/notes/${noteId}`,
         method: 'PATCH',
@@ -35,17 +39,14 @@ const extendedApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Note'],
     }),
-    restoreNote: builder.mutation<Note, { userId: string; noteId: string }>({
+    restoreNote: builder.mutation<Note, RestoreNoteParams>({
       query: ({ userId, noteId }) => ({
         url: `users/${userId}/notes/${noteId}/restore`,
         method: 'PATCH',
       }),
       invalidatesTags: ['Note'],
     }),
-    deleteNote: builder.mutation<
-      boolean,
-      { userId: string; noteId: string; isSoftDelete: boolean }
-    >({
+    deleteNote: builder.mutation<boolean, DeleteNoteParams>({
       query: ({ userId, noteId, isSoftDelete }) => ({
         url: `users/${userId}/notes/${noteId}`,
         params: {

@@ -1,8 +1,5 @@
-import React, { ReactElement } from 'react';
-
+import { ReactElement } from 'react';
 import ReactQuill from 'react-quill';
-
-import parse from 'html-react-parser';
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -37,8 +34,8 @@ export function NoteEditor({
   return (
     <div>
       <ReactQuill
+        theme={readOnly ? 'bubble' : 'snow'}
         placeholder={placeholder}
-        theme="snow"
         readOnly={readOnly}
         defaultValue={value}
         modules={modules}

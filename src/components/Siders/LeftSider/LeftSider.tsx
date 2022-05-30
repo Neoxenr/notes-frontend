@@ -8,18 +8,21 @@ import { AppDispatch } from '../../../store/store';
 import { useDispatch } from 'react-redux';
 import { setIsBasketClicked } from '../../../store/slices/navigationSlice';
 import { MenuClickEventHandler } from 'rc-menu/lib/interface';
+import { setId } from '../../../store/slices/currentNoteSlice';
 
 export function LeftSider(): ReactElement {
   const dispatch: AppDispatch = useDispatch();
 
-  // подумай, как ускорить загрузку или же затемни область карточек
   const handleGetNotes: MenuClickEventHandler = async (): Promise<void> => {
     dispatch(setIsBasketClicked(false));
+    dispatch(setId(undefined));
   };
 
+  // добавь модалку, мол, заметка в корзине
   const handleGetDeletedNotes: MenuClickEventHandler =
     async (): Promise<void> => {
       dispatch(setIsBasketClicked(true));
+      dispatch(setId(undefined));
     };
 
   const items: MenuProps['items'] = [
