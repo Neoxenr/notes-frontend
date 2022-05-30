@@ -1,0 +1,1 @@
+export { MiddleHeader } from './MiddleHeader';
