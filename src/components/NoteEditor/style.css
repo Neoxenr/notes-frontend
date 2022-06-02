@@ -1,0 +1,12 @@
+.ql-container.ql-snow {
+  border: none;
+}
+
+.ql-toolbar.ql-snow {
+  border-left: none;
+  border-right: none;
+}
+
+.ql-editor {
+  min-height: calc(100vh - 206px);
+}

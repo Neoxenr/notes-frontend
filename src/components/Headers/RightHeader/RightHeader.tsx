@@ -1,4 +1,9 @@
-import { LoadingOutlined } from '@ant-design/icons';
+import {
+  CloseSquareOutlined,
+  DeleteOutlined,
+  LoadingOutlined,
+  ReloadOutlined,
+} from '@ant-design/icons';
 import { Button, Space, Spin } from 'antd';
 import { ReactElement } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -56,25 +61,34 @@ export function RightHeader(): ReactElement {
       {isFetching && (
         <Spin
           size="large"
-          indicator={<LoadingOutlined style={{ fontSize: 40 }} spin />}
+          className="spinner"
+          indicator={<LoadingOutlined style={{ fontSize: 50 }} spin />}
         />
       )}
       <Space hidden={isFetching}>
         <Button
-          type="primary"
+          size="large"
+          type="link"
           onClick={() =>
             isBasketClicked ? handleClickDelete(false) : handleClickDelete(true)
           }
-          loading={isDeleting}>
-          {isBasketClicked ? 'Удалить навсегда' : 'Удалить'}
-        </Button>
+          loading={isDeleting}
+          icon={
+            isBasketClicked ? (
+              <CloseSquareOutlined title="Удалить навсегда" />
+            ) : (
+              <DeleteOutlined title="Удалить" />
+            )
+          }
+        />
         <Button
-          type="primary"
+          size="large"
+          type="link"
           hidden={!isBasketClicked}
           onClick={handleClickRestore}
-          loading={isRestoring}>
-          Восстановить
-        </Button>
+          loading={isRestoring}
+          icon={<ReloadOutlined title="Восстановить" />}
+        />
       </Space>
     </>
   );

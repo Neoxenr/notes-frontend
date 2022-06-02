@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import { ReactElement } from 'react';
 import { Search } from '../../Search';
 import { Layout } from 'antd';
@@ -6,6 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAddNoteMutation } from '../../../api';
 import { AppDispatch } from '../../../store/store';
 import { changeView } from '../../../store';
+
+import {
+  AppstoreOutlined,
+  GroupOutlined,
+  PlusSquareOutlined,
+} from '@ant-design/icons';
 
 import './style.css';
 
@@ -42,20 +48,29 @@ export function MiddleHeader(): ReactElement {
       <Space>
         <Search />
         <Space>
+          {!isBasketClicked && (
+            <Button
+              onClick={handleClick}
+              loading={isCreating}
+              size="large"
+              type="link"
+              icon={<PlusSquareOutlined title="Создать заметку" />}
+            />
+          )}
           <Button
-            hidden={isBasketClicked}
-            onClick={handleClick}
-            loading={isCreating}>
-            Создать заметку
-          </Button>
-          <Button onClick={async () => dispatch(changeView(!isChangeView))}>
-            Change view
-          </Button>
+            size="large"
+            type="link"
+            icon={
+              isChangeView ? (
+                <AppstoreOutlined title="Карточки" />
+              ) : (
+                <GroupOutlined title="Фрагменты" />
+              )
+            }
+            onClick={async () => dispatch(changeView(!isChangeView))}
+          />
         </Space>
       </Space>
     </Header>
   );
-}
-function dispatch(chan: any): void {
-  throw new Error('Function not implemented.');
 }

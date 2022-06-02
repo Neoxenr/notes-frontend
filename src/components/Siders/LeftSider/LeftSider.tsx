@@ -39,15 +39,12 @@ export function LeftSider(): ReactElement {
 
   const handleGetNotes: MenuClickEventHandler = async (): Promise<void> => {
     dispatch(setIsNotesClicked(true));
-    // dispatch(setId(undefined));
     dispatch(resetSearchedText());
   };
 
-  // добавь модалку, мол, заметка в корзине и нельзя редачить её
   const handleGetDeletedNotes: MenuClickEventHandler =
     async (): Promise<void> => {
       dispatch(setIsBasketClicked(true));
-      // dispatch(setId(undefined));
       dispatch(resetSearchedText());
     };
 
@@ -89,7 +86,7 @@ export function LeftSider(): ReactElement {
 
   return (
     <Sider
-      width={150}
+      width={140}
       collapsible
       // breakpoint=''
       collapsed={collapsed}

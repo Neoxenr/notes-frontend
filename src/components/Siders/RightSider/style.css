@@ -1,13 +1,11 @@
 .ant-layout-sider:nth-of-type(2) {
   height: 100vh;
-  /* position: fixed; */
   right: 0;
   bottom: 0;
   background-color: #fff;
   border-left: solid 1px #d7d7d7;
-  overflow: auto;
 }
 
 #note-form .ant-form-item:nth-of-type(1) {
-  margin: 64px 0 0;
+  /* margin: 15px 0 0; */
 }

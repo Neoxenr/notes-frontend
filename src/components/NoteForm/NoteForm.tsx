@@ -4,6 +4,8 @@ import { NoteEditor } from '../NoteEditor';
 import { useSelector } from 'react-redux';
 import { useGetNoteQuery, useUpdateNoteMutation } from '../../api';
 
+import './style.css';
+
 type NoteUpdate = {
   title: string;
   body: string;
@@ -57,7 +59,7 @@ export function NoteForm(): ReactElement {
       </Form.Item>
       <Form.Item hidden={isBasketClicked}>
         <Button htmlType="submit" type="primary" loading={isUpdating}>
-          Сохранить
+          Сохранить изменения
         </Button>
       </Form.Item>
     </Form>

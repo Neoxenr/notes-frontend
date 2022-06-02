@@ -1,5 +1,6 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Space } from 'antd';
+import Title from 'antd/lib/typography/Title';
 import { ReactElement } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSignUpMutation } from '../../api';
@@ -37,10 +38,11 @@ export function Registration(): ReactElement {
       justify="center"
       align="middle"
       style={{ minHeight: '100vh' }}>
-      <Col>
+      <Col className="register-form-wrapper">
+        <Title className="register-form__title">Регистрация</Title>
         <Form
           form={form}
-          name="normal_register"
+          name="register"
           className="register-form"
           initialValues={{ remember: true }}
           onFinish={handleOnFinish}>

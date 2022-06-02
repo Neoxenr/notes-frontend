@@ -1,5 +1,6 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Space } from 'antd';
+import Title from 'antd/lib/typography/Title';
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -45,10 +46,11 @@ export function Login(): ReactElement {
       justify="center"
       align="middle"
       style={{ minHeight: '100vh' }}>
-      <Col>
+      <Col className="login-form-wrapper">
+        <Title className="login-form__title">Авторизация</Title>
         <Form
           form={form}
-          name="normal_login"
+          name="login"
           className="login-form"
           initialValues={{ remember: true }}
           onFinish={handleOnFinish}>

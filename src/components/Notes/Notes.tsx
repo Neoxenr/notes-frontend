@@ -1,12 +1,16 @@
 import { ReactElement, useEffect } from 'react';
-import { Col, Row, Skeleton } from 'antd';
+import { Col, Row, Skeleton, Spin } from 'antd';
 import { Note } from './components/Note';
 import { useGetNotesQuery, usePrefetch } from '../../api/notes/notes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { resetCurrentNoteState, setId } from '../../store/slices/currentNoteSlice';
+import {
+  resetCurrentNoteState,
+  setId,
+} from '../../store/slices/currentNoteSlice';
 
 import './style.css';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export function Notes(): ReactElement {
   const dispatch: AppDispatch = useDispatch();
@@ -34,7 +38,13 @@ export function Notes(): ReactElement {
   }, [data]);
 
   if (isLoading || (isFetching && data.length === 0)) {
-    return <Skeleton active />;
+    return (
+      <Spin
+        size="large"
+        className="notes-spinner"
+        indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />}
+      />
+    );
   }
 
   return (
