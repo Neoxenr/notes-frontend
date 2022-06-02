@@ -1,3 +1,10 @@
-.note {
-  width: 150px;
+.ant-card {
+  height: 250px;
+  border-radius: 10px;
+}
+
+.ant-card-meta-description {
+  word-break: break-all;
+  overflow: hidden;
+  height: 170px;
 }

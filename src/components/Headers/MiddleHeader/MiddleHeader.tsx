@@ -1,28 +1,35 @@
 import { Button, Space } from 'antd';
 import { ReactElement } from 'react';
-import { useAddNoteMutation } from '../../../api/notes';
 import { Search } from '../../Search';
 import { Layout } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAddNoteMutation } from '../../../api';
+import { AppDispatch } from '../../../store/store';
+import { changeView } from '../../../store';
+
+import './style.css';
 
 const { Header } = Layout;
 
 export function MiddleHeader(): ReactElement {
-  const [addNote, { isLoading: isCreating }] = useAddNoteMutation();
+  const dispatch: AppDispatch = useDispatch();
 
-  const userId: string = '4b10ef6e-991f-4e62-b275-57193a2280fa';
+  const [addNote, { isLoading: isCreating }] = useAddNoteMutation();
 
   const isBasketClicked = useSelector(
     (state: { navigation: { isBasketClicked: boolean } }) =>
       state.navigation.isBasketClicked,
   );
 
+  const isChangeView = useSelector(
+    (state: any) => state.buttonClicked.isChangeViewClick,
+  );
+
   const handleClick = async (): Promise<void> => {
     if (!isCreating) {
       try {
         await addNote({
-          userId,
-          dto: { title: 'Без названия', text: 'HAHA' },
+          dto: { title: 'Без названия', text: '' },
         }).unwrap();
       } catch (err) {
         console.error('Failed to create the note: ', err);
@@ -34,14 +41,21 @@ export function MiddleHeader(): ReactElement {
     <Header>
       <Space>
         <Search />
-        <Button
-          hidden={isBasketClicked}
-          onClick={handleClick}
-          loading={isCreating}>
-          Create
-        </Button>
-        <Button>Change view</Button>
+        <Space>
+          <Button
+            hidden={isBasketClicked}
+            onClick={handleClick}
+            loading={isCreating}>
+            Создать заметку
+          </Button>
+          <Button onClick={async () => dispatch(changeView(!isChangeView))}>
+            Change view
+          </Button>
+        </Space>
       </Space>
     </Header>
   );
+}
+function dispatch(chan: any): void {
+  throw new Error('Function not implemented.');
 }

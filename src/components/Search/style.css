@@ -1,0 +1,12 @@
+.ant-input-search {
+  display: block;
+  width: 400px;
+}
+
+.ant-input-search .ant-input {
+  border-radius: 10px;
+}
+
+.ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
+  border-radius: 0 10px 10px 0;
+}
