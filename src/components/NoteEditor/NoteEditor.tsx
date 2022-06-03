@@ -3,6 +3,8 @@ import ReactQuill from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
 
+import './style.css';
+
 const modules = {
   toolbar: [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],

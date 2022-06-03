@@ -1,59 +1,115 @@
-import {
-  GetNotesParams,
-  GetNoteParams,
-  AddNoteParams,
-  UpdateNoteParams,
-  RestoreNoteParams,
-  DeleteNoteParams,
-} from '../../common';
-import { Note } from '../../common/entity/types';
 import { api } from '../api';
+import { Note } from '../../common/entity/types';
+import {
+  AddNoteParams,
+  DeleteNoteParams,
+  GetNoteParams,
+  GetNotesParams,
+  RestoreNoteParams,
+  UpdateNoteParams,
+} from '../../common';
 
-const extendedApi = api.injectEndpoints({
+const extendedNotesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getNotes: builder.query<Note[], GetNotesParams>({
-      query: ({ userId, isTrash }) => ({
-        url: `users/${userId}/notes`,
-        params: {
-          trash: isTrash,
-        },
-      }),
+      query: ({ isTrash }) => {
+        const token = localStorage.getItem('token');
+
+        const request = {
+          url: `notes`,
+          params: {
+            trash: isTrash,
+          },
+          headers: new Headers(
+            token ? { Authorization: `Bearer ${token}` } : {},
+          ),
+        };
+
+        return request;
+      },
       providesTags: ['Note'],
     }),
     getNote: builder.query<Note, GetNoteParams>({
-      query: ({ userId, noteId }) => `users/${userId}/notes/${noteId}`,
+      query: ({ noteId }) => {
+        const token = localStorage.getItem('token');
+
+        const request = {
+          url: `notes/${noteId}`,
+          headers: new Headers(
+            token ? { Authorization: `Bearer ${token}` } : {},
+          ),
+        };
+
+        return request;
+      },
     }),
     addNote: builder.mutation<Note, AddNoteParams>({
-      query: ({ userId, dto }) => ({
-        url: `users/${userId}/notes`,
-        method: 'POST',
-        body: dto,
-      }),
+      query: ({ dto }) => {
+        const token = localStorage.getItem('token');
+
+        const request = {
+          url: `notes`,
+          method: 'POST',
+          body: dto,
+          headers: new Headers(
+            token ? { Authorization: `Bearer ${token}` } : {},
+          ),
+        };
+
+        return request;
+      },
       invalidatesTags: ['Note'],
     }),
     updateNote: builder.mutation<Note, UpdateNoteParams>({
-      query: ({ userId, noteId, dto }) => ({
-        url: `users/${userId}/notes/${noteId}`,
-        method: 'PATCH',
-        body: dto,
-      }),
+      query: ({ noteId, dto }) => {
+        const token = localStorage.getItem('token');
+
+        const request = {
+          url: `notes/${noteId}`,
+          method: 'PATCH',
+          body: dto,
+          headers: new Headers(
+            token ? { Authorization: `Bearer ${token}` } : {},
+          ),
+        };
+
+        return request;
+      },
       invalidatesTags: ['Note'],
     }),
     restoreNote: builder.mutation<Note, RestoreNoteParams>({
-      query: ({ userId, noteId }) => ({
-        url: `users/${userId}/notes/${noteId}/restore`,
-        method: 'PATCH',
-      }),
+      query: ({ noteId }) => {
+        const token = localStorage.getItem('token');
+
+        const request = {
+          url: `notes/${noteId}/restore`,
+          method: 'PATCH',
+          headers: new Headers(
+            token ? { Authorization: `Bearer ${token}` } : {},
+          ),
+        };
+
+        return request;
+      },
       invalidatesTags: ['Note'],
     }),
     deleteNote: builder.mutation<boolean, DeleteNoteParams>({
-      query: ({ userId, noteId, isSoftDelete }) => ({
-        url: `users/${userId}/notes/${noteId}`,
-        params: {
-          softDelete: isSoftDelete,
-        },
-        method: 'DELETE',
-      }),
+      query: ({ noteId, isSoftDelete }) => {
+        const token = localStorage.getItem('token');
+
+        const request = {
+          url: `notes/${noteId}`,
+          params: {
+            softDelete: isSoftDelete,
+          },
+          method: 'DELETE',
+          headers: new Headers(
+            token ? { Authorization: `Bearer ${token}` } : {},
+          ),
+        };
+
+        return request;
+      },
       invalidatesTags: ['Note'],
     }),
   }),
@@ -68,4 +124,4 @@ export const {
   useUpdateNoteMutation,
   useRestoreNoteMutation,
   usePrefetch,
-} = extendedApi;
+} = extendedNotesApi;

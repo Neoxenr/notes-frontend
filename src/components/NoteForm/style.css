@@ -1,0 +1,21 @@
+#note-form {
+  box-sizing: border-box;
+  margin-top: 15px;
+  height: calc(100% - 64px);
+  overflow-y: auto;
+}
+
+#note-form > .ant-row {
+  margin: 0;
+}
+
+#note-form_title {
+  padding-left: 14px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+#note-form .ant-btn {
+  margin: 11px 0 11px 12px;
+}

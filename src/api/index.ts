@@ -1,4 +1,4 @@
-export { api } from './api';
+export { useSignInMutation, useSignUpMutation } from './auth';
 export {
   useGetNotesQuery,
   useGetNoteQuery,

@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
-
 import { Card } from 'antd';
 import { useDispatch } from 'react-redux';
 import { setId } from '../../../../store/slices/currentNoteSlice';
 import { AppDispatch } from '../../../../store/store';
+import Meta from 'antd/lib/card/Meta';
 
-import parse from 'html-react-parser';
+import './style.css';
 
 type NoteProps = {
   id: string;
@@ -24,13 +24,17 @@ export function Note(props: NoteProps): ReactElement {
 
   return (
     <Card
+      size="small"
       hoverable
-      className="note"
       title={props.title}
       onClick={handleClick}
       loading={props.isLoading}>
-      <div>{parse(props.text)}</div>
-      <p>{props.id}</p>
+      <Meta
+        description={props.text.replaceAll(
+          /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g,
+          ' ',
+        )}
+      />
     </Card>
   );
 }
