@@ -1,0 +1,11 @@
+.ant-layout-sider:nth-of-type(2) .ant-space {
+  margin-top: 10px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.spinner {
+  margin: 50vh 0;
+  display: flex;
+  justify-content: center;
+}

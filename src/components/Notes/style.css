@@ -1,0 +1,12 @@
+.ant-layout-content .ant-row:nth-of-type(1) {
+  height: calc(100% - 64px);
+  padding: 10px;
+  overflow-y: auto;
+  margin-right: -2px !important;
+}
+
+.notes-spinner {
+  margin: calc(50vh - 84px) 0;
+  display: flex;
+  justify-content: center;
+}

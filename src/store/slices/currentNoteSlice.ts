@@ -15,9 +15,10 @@ const currentNoteSlice = createSlice({
     setId: (state, action) => {
       state.id = action.payload;
     },
+    resetCurrentNoteState: () => initialState,
   },
 });
 
-export const { setId } = currentNoteSlice.actions;
+export const { setId, resetCurrentNoteState } = currentNoteSlice.actions;
 
 export default currentNoteSlice.reducer;

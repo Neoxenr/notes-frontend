@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import { Layout } from 'antd';
 
@@ -12,8 +12,6 @@ import './style.css';
 const { Content } = Layout;
 
 export function Home(): ReactElement {
-  console.log('FFFFF');
-
   return (
     <Layout>
       <LeftSider />

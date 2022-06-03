@@ -1,8 +1,10 @@
 import { ReactElement, useEffect } from 'react';
-import { Button, Form, Input, Skeleton } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { NoteEditor } from '../NoteEditor';
 import { useSelector } from 'react-redux';
 import { useGetNoteQuery, useUpdateNoteMutation } from '../../api';
+
+import './style.css';
 
 type NoteUpdate = {
   title: string;
@@ -12,7 +14,6 @@ type NoteUpdate = {
 export function NoteForm(): ReactElement {
   const [form] = Form.useForm();
 
-  const userId: string = '4b10ef6e-991f-4e62-b275-57193a2280fa';
   const noteId = useSelector(
     (state: { currentNote: { id: string } }) => state.currentNote.id,
   );
@@ -21,7 +22,7 @@ export function NoteForm(): ReactElement {
       state.navigation.isBasketClicked,
   );
 
-  const { data, error, isLoading } = useGetNoteQuery({ userId, noteId });
+  const { data, isFetching } = useGetNoteQuery({ noteId });
   const [updateNote, { isLoading: isUpdating }] = useUpdateNoteMutation();
 
   useEffect(() => {
@@ -35,22 +36,25 @@ export function NoteForm(): ReactElement {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <Skeleton active />;
-  }
-
   const handleOnFinish = async ({ title, body }: NoteUpdate) => {
-    updateNote({ userId, noteId, dto: { title, text: body } });
+    updateNote({
+      noteId,
+      dto: { title, text: body },
+    });
   };
 
   return (
     <Form
+      hidden={isFetching}
       name="note-form"
       layout="vertical"
       form={form}
       onFinish={handleOnFinish}>
       <Form.Item name="title">
-        <Input readOnly={isBasketClicked} placeholder="Название" />
+        <Input
+          readOnly={isBasketClicked}
+          placeholder="Название"
+        />
       </Form.Item>
       <Form.Item name="body">
         {/* @ts-ignore */}
