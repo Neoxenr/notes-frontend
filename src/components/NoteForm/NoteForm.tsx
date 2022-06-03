@@ -22,7 +22,7 @@ export function NoteForm(): ReactElement {
       state.navigation.isBasketClicked,
   );
 
-  const { data, isFetching, isLoading } = useGetNoteQuery({ noteId });
+  const { data, isFetching } = useGetNoteQuery({ noteId });
   const [updateNote, { isLoading: isUpdating }] = useUpdateNoteMutation();
 
   useEffect(() => {
@@ -51,7 +51,10 @@ export function NoteForm(): ReactElement {
       form={form}
       onFinish={handleOnFinish}>
       <Form.Item name="title">
-        <Input readOnly={isBasketClicked} placeholder="Название" />
+        <Input
+          readOnly={isBasketClicked}
+          placeholder="Название"
+        />
       </Form.Item>
       <Form.Item name="body">
         {/* @ts-ignore */}

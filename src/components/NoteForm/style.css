@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin-top: 15px;
   height: calc(100% - 64px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #note-form > .ant-row {

@@ -1,11 +1,12 @@
 import {
   CloseSquareOutlined,
   DeleteOutlined,
+  InfoCircleOutlined,
   LoadingOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
-import { Button, Space, Spin } from 'antd';
-import { ReactElement } from 'react';
+import { Button, Popover, Space, Spin } from 'antd';
+import { ReactElement, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDeleteNoteMutation, useGetNoteQuery } from '../../../api';
 import { useRestoreNoteMutation } from '../../../api';
@@ -14,6 +15,16 @@ import { setId } from '../../../store/slices/currentNoteSlice';
 import './style.css';
 
 export function RightHeader(): ReactElement {
+  const [visible, setVisible] = useState(false);
+
+  const hide = () => {
+    setVisible(false);
+  };
+
+  const handleVisibleChange = (newVisible: boolean) => {
+    setVisible(newVisible);
+  };
+
   const dispatch = useDispatch();
 
   const noteId = useSelector(
@@ -27,7 +38,7 @@ export function RightHeader(): ReactElement {
   const [deleteNote, { isLoading: isDeleting }] = useDeleteNoteMutation();
   const [restoreNote, { isLoading: isRestoring }] = useRestoreNoteMutation();
 
-  const { isFetching } = useGetNoteQuery({ noteId });
+  const { data, isFetching } = useGetNoteQuery({ noteId });
 
   const handleClickDelete = async (isSoftDelete: boolean): Promise<void> => {
     if (!isDeleting) {
@@ -69,6 +80,14 @@ export function RightHeader(): ReactElement {
         <Button
           size="large"
           type="link"
+          hidden={!isBasketClicked}
+          onClick={handleClickRestore}
+          loading={isRestoring}
+          icon={<ReloadOutlined title="Восстановить" />}
+        />
+        <Button
+          size="large"
+          type="link"
           onClick={() =>
             isBasketClicked ? handleClickDelete(false) : handleClickDelete(true)
           }
@@ -77,18 +96,34 @@ export function RightHeader(): ReactElement {
             isBasketClicked ? (
               <CloseSquareOutlined title="Удалить навсегда" />
             ) : (
-              <DeleteOutlined title="Удалить" />
+              <DeleteOutlined title="Поместить в корзину" />
             )
           }
         />
-        <Button
-          size="large"
-          type="link"
-          hidden={!isBasketClicked}
-          onClick={handleClickRestore}
-          loading={isRestoring}
-          icon={<ReloadOutlined title="Восстановить" />}
-        />
+        <Popover
+          overlayStyle={{ width: 150 }}
+          content={
+            <>
+              <p>
+                {`Дата создания: ${new Date(
+                  data ? data.createdAt : '',
+                ).toLocaleDateString()}`}
+              </p>
+              <p>{`Дата изменения: \n${new Date(
+                data ? data.updatedAt : '',
+              ).toLocaleDateString()}`}</p>
+              <a onClick={hide}>Закрыть</a>
+            </>
+          }
+          trigger="click"
+          visible={visible}
+          onVisibleChange={handleVisibleChange}>
+          <Button
+            size="large"
+            type="link"
+            icon={<InfoCircleOutlined title="Информация о заметке" />}
+          />
+        </Popover>
       </Space>
     </>
   );

@@ -2,7 +2,7 @@
   height: calc(100% - 64px);
   padding: 10px;
   overflow-y: auto;
-  margin-right: 0 !important;
+  margin-right: -2px !important;
 }
 
 .notes-spinner {

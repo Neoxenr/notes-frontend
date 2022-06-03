@@ -14,7 +14,7 @@ export function RightSider(): ReactElement {
   );
 
   return (
-    <Sider width={550}>
+    <Sider width={560}>
       {noteId !== undefined && (
         <>
           <RightHeader />

@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react';
-import { Col, Row, Skeleton, Spin } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import { Note } from './components/Note';
 import { useGetNotesQuery, usePrefetch } from '../../api/notes/notes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,9 +8,9 @@ import {
   resetCurrentNoteState,
   setId,
 } from '../../store/slices/currentNoteSlice';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import './style.css';
-import { LoadingOutlined } from '@ant-design/icons';
 
 export function Notes(): ReactElement {
   const dispatch: AppDispatch = useDispatch();

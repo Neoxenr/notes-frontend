@@ -29,6 +29,7 @@ export function Search(): ReactElement {
       value={inputValue}
       onChange={(event) => setInputValue(event.target.value)}
       enterButton
+      allowClear
       onSearch={handleSearch}
     />
   );

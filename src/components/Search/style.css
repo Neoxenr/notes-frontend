@@ -3,10 +3,38 @@
   width: 400px;
 }
 
-.ant-input-search .ant-input {
-  border-radius: 10px;
+@media screen and (max-width: 1000px) {
+  .ant-input-search {
+    width: 300px;
+  }
 }
 
-.ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
-  border-radius: 0 10px 10px 0;
+@media screen and (max-width: 870px) {
+  .ant-input-search {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .ant-input-search {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .ant-input-search {
+    width: 150px;
+  }
+}
+
+/* @media screen and (max-width: 660px) {
+  .ant-input-search {
+    width: 100px;
+  }
+} */
+
+@media screen and (max-width: 600px) {
+  .ant-input-search {
+    width: 100px;
+  }
 }

@@ -9,5 +9,17 @@
 }
 
 .ant-layout-content .ant-space-item:nth-of-type(2) {
-  margin-right: 4px;
+  margin-right: 3px;
 }
+
+@media screen and (max-width: 500px) {
+  .ant-layout-header:nth-of-type(1) > .ant-space:nth-of-type(1) > .ant-space-item:nth-of-type(2) > .ant-space > .ant-space-item:nth-of-type(2) {
+    display: none;
+  }
+}
+/* 
+@media screen and (max-width: 600px) {
+  .ant-layout-header:nth-of-type(1) > .ant-space:nth-of-type(1) > .ant-space-item:nth-of-type(2) > .ant-space > .ant-space-item:nth-of-type(1) {
+    display: none;
+  }
+} */

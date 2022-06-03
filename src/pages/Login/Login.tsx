@@ -1,6 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Space } from 'antd';
-import Title from 'antd/lib/typography/Title';
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +7,8 @@ import { useSignInMutation } from '../../api';
 import { SignInDto, SignInResponseDto } from '../../common/dto';
 import { authorize } from '../../store';
 import { AppDispatch } from '../../store/store';
+
+import Title from 'antd/lib/typography/Title';
 
 import './style.css';
 

@@ -3,9 +3,9 @@ import { Card } from 'antd';
 import { useDispatch } from 'react-redux';
 import { setId } from '../../../../store/slices/currentNoteSlice';
 import { AppDispatch } from '../../../../store/store';
+import Meta from 'antd/lib/card/Meta';
 
 import './style.css';
-import Meta from 'antd/lib/card/Meta';
 
 type NoteProps = {
   id: string;
@@ -30,9 +30,10 @@ export function Note(props: NoteProps): ReactElement {
       onClick={handleClick}
       loading={props.isLoading}>
       <Meta
-        description={props.text
-          .replaceAll(/<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g, ' ')
-        }
+        description={props.text.replaceAll(
+          /<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g,
+          ' ',
+        )}
       />
     </Card>
   );
