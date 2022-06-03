@@ -8,24 +8,25 @@
 }
 
 .ql-editor {
-  height: calc(100vh - 180px);
+  padding-bottom: 0;
+  height: calc(100vh - 195px);
 }
 
 @media screen and (max-width: 1720px) {
   .ql-editor {
-    height: calc(100vh - 204px) !important;
+    height: calc(100vh - 219px) !important;
   }
 }
 
 @media screen and (max-width: 1260px) {
   .ql-editor {
-    height: calc(100vh - 228px) !important;
+    height: calc(100vh - 242px) !important;
   }
 }
 
 @media screen and (max-width: 760px) {
   .ql-editor {
-    height: calc(100vh - 252px) !important;
+    height: calc(100vh - 266px) !important;
   }
 }
 

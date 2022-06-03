@@ -88,7 +88,7 @@ export function LeftSider(): ReactElement {
     <Sider
       width={140}
       collapsible
-      breakpoint='md'
+      breakpoint="md"
       collapsed={collapsed}
       onCollapse={(value: any) => setCollapsed(value)}>
       <Menu defaultSelectedKeys={['1']} items={items} />

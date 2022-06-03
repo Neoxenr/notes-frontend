@@ -12,8 +12,6 @@ import './style.css';
 const { Content } = Layout;
 
 export function Home(): ReactElement {
-  console.log('FFFFF');
-
   return (
     <Layout>
       <LeftSider />
